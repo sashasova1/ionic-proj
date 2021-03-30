@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Бібліотека
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-list-header collapse="condense">
+      <ion-label>Автори</ion-label>
+      <ion-button shape="round" fill="outline" color="success" (click)="add()">
+        <ion-icon slot="start" name="add"></ion-icon>Додати
+      </ion-button>
+    </ion-list-header>
+
+    <app-author *ngIf="showNew" [isNew]="true" (addAuthor)="addAuthor($event)" (cancelAddingAuthor)="showNew=false">
+    </app-author>
+
+    <div *ngFor="let author of authors; let i = index">
+      <ion-item-sliding>
+        <ion-item-options side="start">
+          <ion-item-option color="primary" (click)="showEdit=i">
+            <ion-icon name="create"></ion-icon>Змінити
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="delete(i)">
+            <ion-icon name="trash"></ion-icon>Видалити
+          </ion-item-option>
+        </ion-item-options>
+
+        <ion-item (click)="showEdit=-1">
+          <ion-icon name="people" slot="start"></ion-icon>
+          <ion-label>{{author.name}}</ion-label>
+          <ion-note slot="end">{{author.country}}</ion-note>
+        </ion-item>
+      </ion-item-sliding>
+      <app-author *ngIf="showEdit==i" [isNew]="false" [authorInfo]="author"></app-author>
+    </div>
+  </ion-list>
+</ion-content>
