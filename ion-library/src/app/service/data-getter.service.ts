@@ -10,7 +10,8 @@ export interface AuthorInfo {
   providedIn: 'root'
 })
 
-export class AuthorsDataService {
+export class DataGetterService {
+
   private authors: AuthorInfo[] = [
     {
       name: "Всеволод Нестайко",
@@ -22,8 +23,25 @@ export class AuthorsDataService {
     },
   ];
 
-  constructor() { }
+  private userName = '';
 
+  private users = [
+    'admin', 'user'
+  ];
+
+  getUser() {
+    return this.userName;
+  }
+
+  setUser(name: string) {
+    this.userName = name;
+  }
+
+  userExists(name: string): boolean {
+    return this.users.indexOf(name) !== -1;
+  }
+
+  constructor() { }
 
   getAuthors(): Observable<AuthorInfo[]> {
     return of(this.authors);

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AuthorInfo } from '../../service/authors-data.service';
+import { AuthorInfo } from '../../service/data-getter.service';
 
 @Component({
   selector: 'app-author',
@@ -20,8 +20,8 @@ export class AuthorComponent implements OnInit {
   ngOnInit() {
     if (this.isNew) {
       this.authorInfo = {
-        name: ' ',
-        country: ' '
+        name: '',
+        country: ''
       };
       this.title = 'Новий автор';
     }

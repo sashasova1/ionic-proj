@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthorsDataService, AuthorInfo } from '../service/authors-data.service';
+import { DataGetterService, AuthorInfo } from '../service/data-getter.service';
 
 @Component({
   selector: 'app-home',
@@ -8,17 +8,20 @@ import { AuthorsDataService, AuthorInfo } from '../service/authors-data.service'
 })
 export class HomePage {
 
+  userName: string;
+
   authors: AuthorInfo[];
 
   showNew = false;
   showEdit = -1;
 
-  constructor(private authorGetter: AuthorsDataService) {
-    this.authorGetter.getAuthors().subscribe(
+  constructor(private dataGetter: DataGetterService) {
+    this.dataGetter.getAuthors().subscribe(
       (data) => {
         this.authors = data;
       }
     );
+    this.userName = this.dataGetter.getUser();
   }
 
   add() {
@@ -26,11 +29,11 @@ export class HomePage {
   }
 
   delete(index: number) {
-    this.authorGetter.deleteAuthor(index);
+    this.dataGetter.deleteAuthor(index);
   }
 
   addAuthor(author: AuthorInfo) {
-    this.authorGetter.addAuthor(author);
+    this.dataGetter.addAuthor(author);
     this.showNew = false;
   }
 
