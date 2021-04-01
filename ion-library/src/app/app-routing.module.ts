@@ -13,6 +13,11 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
+  {
+    path: 'books/:author',
+    loadChildren: () => import('./books/books.module').then(m => m.BooksPageModule),
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

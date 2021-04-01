@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataGetterService } from '../service/data-getter.service';
+import { DataGetterService } from '../services/data-getter.service';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -16,9 +16,7 @@ export class LoginPage implements OnInit {
     private dataGetter: DataGetterService,
     public alertController: AlertController) { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   login() {
     if (this.dataGetter.userExists(this.userName)) {

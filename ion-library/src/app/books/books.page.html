@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{authorName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header collapse="condense">
+      <ion-label>Книжки</ion-label>
+    </ion-list-header>
+
+    <div *ngFor="let book of books; let i = index">
+      <ion-item-sliding>
+        <ion-item-options side="start">
+          <ion-item-option color="primary" (click)="showEdit=i">
+            <ion-icon name="create"></ion-icon>Змінити
+          </ion-item-option>
+        </ion-item-options>
+
+        <ion-item (click)="showEdit=-1" text-wrap>
+          <ion-icon name="book-outline" slot="start"></ion-icon>
+          <ion-label text-wrap>{{book.name}}</ion-label>
+          <ion-note slot="end">{{book.genre}} - {{book.year}}</ion-note>
+        </ion-item>
+      </ion-item-sliding>
+      <app-book *ngIf="showEdit==i" [bookInfo]="book"></app-book>
+    </div>
+  </ion-list>
+
+  <ion-item>
+    <ion-label position="floating">Дані на home</ion-label>
+    <ion-input type="text" [(ngModel)]="textData"></ion-input>
+  </ion-item>
+  <ion-button color="primary" class="ion-float-right" (click)="passData()">
+    <ion-icon slot="start" name="send"></ion-icon> Переслати на home
+  </ion-button>
+</ion-content>

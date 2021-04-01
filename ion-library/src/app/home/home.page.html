@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Бібліотека
+      {{title}}
     </ion-title>
     <ion-buttons slot="secondary">
       ({{userName}})
@@ -40,6 +40,12 @@
           <ion-label>{{author.name}}</ion-label>
           <ion-note slot="end">{{author.country}}</ion-note>
         </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="secondary" routerLink="/books/{{author.name}}" routerDirection="forward">
+            <ion-icon name="reorder-four-outline"></ion-icon>
+            Книжки
+          </ion-item-option>
+        </ion-item-options>
       </ion-item-sliding>
       <app-author *ngIf="showEdit==i" [isNew]="false" [authorInfo]="author"></app-author>
     </div>

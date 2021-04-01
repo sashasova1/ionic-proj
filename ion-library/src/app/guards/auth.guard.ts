@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { DataGetterService } from '../service/data-getter.service';
+import { DataGetterService } from '../services/data-getter.service';
 @Injectable({
   providedIn: 'root'
 })
