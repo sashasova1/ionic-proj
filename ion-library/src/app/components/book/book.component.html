@@ -9,10 +9,6 @@
       <ion-input type="text" [(ngModel)]="bookInfo.name" name="name"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Автор</ion-label>
-      <ion-input type="text" [(ngModel)]="bookInfo.author" name="author"></ion-input>
-    </ion-item>
-    <ion-item>
       <ion-label position="floating">Жанр</ion-label>
       <ion-input type="text" [(ngModel)]="bookInfo.genre" name="genre"></ion-input>
     </ion-item>
@@ -20,5 +16,8 @@
       <ion-label position="floating">Рік видання</ion-label>
       <ion-input type="number" [(ngModel)]="bookInfo.year" name="year"></ion-input>
     </ion-item>
+    <ion-button color="primary" (click)="saveBook()">
+      <ion-icon slot="start" name="save"></ion-icon>Зберегти
+    </ion-button>
   </ion-card-content>
 </ion-card>

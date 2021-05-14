@@ -19,5 +19,8 @@
     <ion-button *ngIf="isNew" color="danger" class="ion-float-right" (click)="cancelAdding()">
       <ion-icon slot="start" name="close"></ion-icon>Відміна
     </ion-button>
+    <ion-button *ngIf="!isNew" color="primary" (click)="saveAuthor()">
+      <ion-icon slot="start" name="save"></ion-icon>Зберегти
+    </ion-button>
   </ion-card-content>
 </ion-card>

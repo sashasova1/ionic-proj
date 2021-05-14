@@ -30,7 +30,7 @@
           <ion-item-option color="primary" (click)="showEdit=i">
             <ion-icon name="create"></ion-icon>Змінити
           </ion-item-option>
-          <ion-item-option color="danger" (click)="delete(i)">
+          <ion-item-option color="danger" (click)="delete(author)">
             <ion-icon name="trash"></ion-icon>Видалити
           </ion-item-option>
         </ion-item-options>
@@ -41,7 +41,8 @@
           <ion-note slot="end">{{author.country}}</ion-note>
         </ion-item>
         <ion-item-options side="end">
-          <ion-item-option color="secondary" routerLink="/books/{{author.name}}" routerDirection="forward">
+          <ion-item-option color="secondary" [routerLink]="['/books/'+ author.name, {id: author.id}]"
+            routerDirection="forward">
             <ion-icon name="reorder-four-outline"></ion-icon>
             Книжки
           </ion-item-option>

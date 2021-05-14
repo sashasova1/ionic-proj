@@ -17,6 +17,21 @@ export class HttpTestPage implements OnInit {
 
   ngOnInit() {
     this.refreshData(false);
+
+    this.http.get('http://localhost/api/?a=10&b=30').subscribe(
+      data => {
+        console.log(data)
+      }
+    );
+
+    this.http.post('http://localhost/api',
+      {
+        a: 10,
+        b: 30,
+        c: 'text data'
+      }).subscribe(
+        data => console.log(data)
+      );
   }
 
   refreshData(refresher) {

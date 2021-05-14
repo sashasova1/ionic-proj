@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AuthorInfo } from '../../services/data-getter.service';
+import { AuthorInfo, DataGetterService } from '../../services/data-getter.service';
 
 @Component({
   selector: 'app-author',
@@ -15,11 +15,12 @@ export class AuthorComponent implements OnInit {
   @Output() cancelAddingAuthor = new EventEmitter();
   title: string;
 
-  constructor() { }
+  constructor(private dataGetter: DataGetterService) { }
 
   ngOnInit() {
     if (this.isNew) {
       this.authorInfo = {
+        id: null,
         name: '',
         country: ''
       };
@@ -37,6 +38,12 @@ export class AuthorComponent implements OnInit {
     if (this.isNew) {
       this.cancelAddingAuthor.emit();
     }
+  }
+
+  saveAuthor() {
+    this.dataGetter.editAuthor(this.authorInfo).subscribe(
+      data => console.log(data)
+    );
   }
 }
 

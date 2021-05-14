@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataGetterService, BookInfo } from "../services/data-getter.service";
-import { ActivatedRoute } from "@angular/router";
+import { DataGetterService } from "../services/data-getter.service";
+import { ActivatedRoute, Router } from "@angular/router";
 import { SharedDataService } from '../services/shared-data.service';
 
 @Component({
@@ -9,21 +9,21 @@ import { SharedDataService } from '../services/shared-data.service';
   styleUrls: ['./books.page.scss'],
 })
 export class BooksPage implements OnInit {
-
+  authorId: number;
   authorName: string;
   books: any[];
-
-  showEdit = -1;
 
   textData: string;
 
   constructor(private dataGetter: DataGetterService,
     private route: ActivatedRoute,
-    private sharedData: SharedDataService) { }
+    private sharedData: SharedDataService) {
+    this.authorId = +this.route.snapshot.paramMap.get('id');
+  }
 
   ngOnInit() {
-    this.authorName = this.route.snapshot.paramMap.get('author');
-    this.dataGetter.getBooks(this.authorName).subscribe(
+    this.authorName = this.route.snapshot.paramMap.get('authorName');
+    this.dataGetter.getBooks(this.authorId).subscribe(
       data => {
         this.books = data;
       }

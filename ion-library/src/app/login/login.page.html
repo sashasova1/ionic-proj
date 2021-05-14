@@ -15,6 +15,11 @@
           <ion-label position="floating">Ім'я користувача</ion-label>
           <ion-input type="text" [(ngModel)]="userName"></ion-input>
         </ion-item>
+        <ion-item>
+          <ion-label position="floating">Пароль</ion-label>
+          <ion-input type="password" [(ngModel)]="passWord"></ion-input>
+        </ion-item>
+
         <ion-button color="primary" class="ion-float-right" (click)="login()">
           <ion-icon slot="start" name="log-in"></ion-icon> Увійти
         </ion-button>

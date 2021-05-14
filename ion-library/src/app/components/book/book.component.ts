@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BookInfo } from '../../services/data-getter.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { BookInfo, DataGetterService } from '../../services/data-getter.service';
 
 @Component({
   selector: 'app-book',
@@ -12,16 +12,15 @@ export class BookComponent implements OnInit {
   @Input() bookInfo: BookInfo;
   title: string;
 
-  constructor() { }
+  constructor(private dataGetter: DataGetterService) { }
 
   ngOnInit() {
-    this.bookInfo = {
-      name: '',
-      author: '',
-      genre: '',
-      year: null
-    };
-    this.title = 'Редагування книжки';
+  }
+
+  saveBook() {
+    this.dataGetter.editBook(this.bookInfo).subscribe(
+      data => console.log(data)
+    );
   }
 
 }
