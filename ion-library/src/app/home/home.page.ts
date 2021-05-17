@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataGetterService, AuthorInfo } from '../services/data-getter.service';
+import { FireDataGetterService } from '../services/fire-data-getter.service';
 import { SharedDataService } from '../services/shared-data.service';
 
 @Component({
@@ -16,8 +18,10 @@ export class HomePage {
   showNew = false;
 
   constructor(private dataGetter: DataGetterService,
-    private sharedData: SharedDataService) {
-    this.dataGetter.getAuthors().subscribe(
+    private sharedData: SharedDataService,
+    private router: Router,
+    private fireData: FireDataGetterService) {
+    this.fireData.getAuthors().subscribe(
       (data) => {
         this.authors = data;
       }
@@ -36,20 +40,11 @@ export class HomePage {
   }
 
   delete(author) {
-    this.dataGetter.delAuthor(author).subscribe(
-      res => this.dataGetter.getAuthors().subscribe(
-        data => this.authors = data
-      )
-    );
-    this.showNew = false;
+    this.fireData.delAuthor(author);
   }
 
   addAuthor(author) {
-    this.dataGetter.addAuthor(author).subscribe(
-      res => this.dataGetter.getAuthors().subscribe(
-        data => this.authors = data
-      )
-    );
+    this.fireData.addAuthor(author);
     this.showNew = false;
   }
 

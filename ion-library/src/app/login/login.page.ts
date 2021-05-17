@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataGetterService } from '../services/data-getter.service';
 import { AlertController } from '@ionic/angular';
+import { FireDataGetterService } from '../services/fire-data-getter.service';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +18,13 @@ export class LoginPage implements OnInit {
     private dataGetter: DataGetterService,
     public alertController: AlertController) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+
+  }
 
   login() {
+    this.dataGetter.setUser('FakeUser');
+    this.router.navigate(['/home']);
     this.dataGetter.checkUser({
       username: this.userName,
       passwd: this.passWord

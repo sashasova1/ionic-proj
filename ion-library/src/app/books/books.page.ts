@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataGetterService } from "../services/data-getter.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { SharedDataService } from '../services/shared-data.service';
+import { FireDataGetterService } from '../services/fire-data-getter.service';
 
 @Component({
   selector: 'app-books',
@@ -9,7 +10,7 @@ import { SharedDataService } from '../services/shared-data.service';
   styleUrls: ['./books.page.scss'],
 })
 export class BooksPage implements OnInit {
-  authorId: number;
+  authorId: string;
   authorName: string;
   books: any[];
 
@@ -17,16 +18,16 @@ export class BooksPage implements OnInit {
 
   constructor(private dataGetter: DataGetterService,
     private route: ActivatedRoute,
+    private router: Router,
+    private fireData: FireDataGetterService,
     private sharedData: SharedDataService) {
-    this.authorId = +this.route.snapshot.paramMap.get('id');
+    this.authorId = this.route.snapshot.paramMap.get('id');
   }
 
   ngOnInit() {
     this.authorName = this.route.snapshot.paramMap.get('authorName');
-    this.dataGetter.getBooks(this.authorId).subscribe(
-      data => {
-        this.books = data;
-      }
+    this.fireData.getBooks(this.authorId).subscribe(
+      data => this.books = data
     );
   }
 

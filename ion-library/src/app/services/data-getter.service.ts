@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 export interface AuthorInfo {
-  id: number;
+  id: string;
   name: string;
   country: string;
 }
 
 export interface BookInfo {
-  id: number;
+  id: string;
   name: string;
   genre: string;
   year: number;

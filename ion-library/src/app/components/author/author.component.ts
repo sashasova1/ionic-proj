@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FireDataGetterService } from 'src/app/services/fire-data-getter.service';
 import { AuthorInfo, DataGetterService } from '../../services/data-getter.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class AuthorComponent implements OnInit {
   @Output() cancelAddingAuthor = new EventEmitter();
   title: string;
 
-  constructor(private dataGetter: DataGetterService) { }
+  constructor(private dataGetter: DataGetterService, private fireData: FireDataGetterService) { }
 
   ngOnInit() {
     if (this.isNew) {
@@ -41,9 +42,7 @@ export class AuthorComponent implements OnInit {
   }
 
   saveAuthor() {
-    this.dataGetter.editAuthor(this.authorInfo).subscribe(
-      data => console.log(data)
-    );
+    this.fireData.editAuthor(this.authorInfo);
   }
 }
 
