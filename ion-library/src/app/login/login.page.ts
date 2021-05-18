@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataGetterService } from '../services/data-getter.service';
 import { AlertController } from '@ionic/angular';
@@ -15,34 +15,28 @@ export class LoginPage implements OnInit {
 
   constructor(
     private router: Router,
-    private dataGetter: DataGetterService,
-    public alertController: AlertController) { }
+    public alertController: AlertController,
+    private fireData: FireDataGetterService) { }
 
   ngOnInit() {
-
+    this.fireData.getAuthors().subscribe(
+      data => console.log(data)
+    );
   }
 
   login() {
-    this.dataGetter.setUser('FakeUser');
-    this.router.navigate(['/home']);
-    this.dataGetter.checkUser({
+    this.fireData.checkUser({
       username: this.userName,
       passwd: this.passWord
-    }).subscribe(
-      result => {
-        if (result.hasOwnProperty('error')) {
-          this.userNotExistAlert(result.error);
-        } else {
-          if (result.hasOwnProperty('token')) {
-            this.dataGetter.setUser(this.userName);
-            this.dataGetter.setToken(result.token);
-            this.router.navigate(['/home']);
-          } else {
-            this.userNotExistAlert('Unexpected error!');
-          }
-        }
+    }).then(
+      res => {
+        this.fireData.setUser(this.userName);
+        this.router.navigate(['/home']);
+      },
+      err => {
+        this.userNotExistAlert(err.message);
       }
-    )
+    );
   }
 
   async userNotExistAlert(message) {

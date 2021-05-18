@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +11,10 @@ import { map } from 'rxjs/operators';
 export class FireDataGetterService {
 
   authors: Observable<any[]>;
+  private userName = '';
 
-  constructor(private readonly afs: AngularFirestore) {
+  constructor(private readonly afs: AngularFirestore,
+    private afAuth: AngularFireAuth) {
     const authorsCollection = afs.collection('authors');
     this.authors = authorsCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -19,6 +23,21 @@ export class FireDataGetterService {
         return { id, ...(data as {}) };
       }))
     );
+  }
+
+  checkUser(user) {
+    return this.afAuth.signInWithEmailAndPassword(
+      user.username,
+      user.passwd
+    );
+  }
+
+  getUser() {
+    return this.userName;
+  }
+
+  setUser(name: string) {
+    this.userName = name;
   }
 
   getAuthors() {

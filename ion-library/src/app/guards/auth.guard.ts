@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { DataGetterService } from '../services/data-getter.service';
+import { FireDataGetterService } from '../services/fire-data-getter.service';
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthGuard implements CanActivate {
-  constructor(private dataGetter: DataGetterService,
-    private router: Router) { }
+
+  constructor(private router: Router,
+    private fireData: FireDataGetterService) { }
+
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-    const isLoggedIn = this.dataGetter.getUser() !== '';
+    const isLoggedIn = this.fireData.getUser() !== '';
     if (!isLoggedIn) {
       this.router.navigateByUrl('/login');
     }

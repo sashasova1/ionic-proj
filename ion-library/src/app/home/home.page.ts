@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { DataGetterService, AuthorInfo } from '../services/data-getter.service';
+import { AuthorInfo } from '../services/data-getter.service';
 import { FireDataGetterService } from '../services/fire-data-getter.service';
 import { SharedDataService } from '../services/shared-data.service';
 
@@ -17,16 +16,12 @@ export class HomePage {
 
   showNew = false;
 
-  constructor(private dataGetter: DataGetterService,
-    private sharedData: SharedDataService,
-    private router: Router,
+  constructor(private sharedData: SharedDataService,
     private fireData: FireDataGetterService) {
     this.fireData.getAuthors().subscribe(
-      (data) => {
-        this.authors = data;
-      }
+      data => this.authors = data
     );
-    this.userName = this.dataGetter.getUser();
+    this.userName = this.fireData.getUser();
   }
 
   ionViewDidEnter() {
